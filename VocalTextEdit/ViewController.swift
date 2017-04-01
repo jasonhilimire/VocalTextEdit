@@ -8,12 +8,19 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
-    
+class ViewController: NSViewController, NSSpeechSynthesizerDelegate {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        speechSynthesizer.delegate = self
+        speakButton.isEnabled = true
+        stopButton.isEnabled = false
+        progressIndicator.isHidden = true
+    }
     let speechSynthesizer = NSSpeechSynthesizer()
-
     @IBOutlet var textView: NSTextView!
-    
+    @IBOutlet weak var speakButton: NSButton!
+    @IBOutlet weak var stopButton: NSButton!
+    @IBOutlet weak var progressIndicator: NSProgressIndicator!
     var contents: String? {
         get {
             return textView.string
@@ -22,19 +29,25 @@ class ViewController: NSViewController {
             textView.string = newValue
         }
     }
-    
-    @IBAction func speakButtonClicked(_ sender: NSButton) {
+    @IBAction func speakButtonClicked(sender: NSButton) {
         if let contents = textView.string, !contents.isEmpty {
             speechSynthesizer.startSpeaking(contents)
         } else {
             speechSynthesizer.startSpeaking("The document is empty.")
         }
+        speakButton.isEnabled = false
+        stopButton.isEnabled = true
+        progressIndicator.isHidden = false
     }
-    
-    @IBAction func stopButtonClicked(_ sender: NSButton) {
+    @IBAction func stopButtonClicked(sender: NSButton) {
         speechSynthesizer.stopSpeaking()
     }
-
-
+    func speechSynthesizer(_ sender: NSSpeechSynthesizer, didFinishSpeaking finishedSpeaking: Bool) {
+        speakButton.isEnabled = true
+        stopButton.isEnabled = false
+        progressIndicator.isHidden = true
+    }
+    func speechSynthesizer(_ sender: NSSpeechSynthesizer, willSpeakWord characterRange: NSRange, of string: String) {
+        progressIndicator.doubleValue = (Double(characterRange.location + characterRange.length) / Double(string.characters.count)) * 100
+    }
 }
-

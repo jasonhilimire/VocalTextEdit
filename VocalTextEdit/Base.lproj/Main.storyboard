@@ -701,7 +701,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="speakButtonClicked:" target="5gI-5U-AMq" id="GpW-lf-Bub"/>
+                                    <action selector="speakButtonClickedWithSender:" target="5gI-5U-AMq" id="iYo-vR-G3M"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T8Y-z8-UGJ">
@@ -711,7 +711,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="stopButtonClicked:" target="5gI-5U-AMq" id="r2d-39-5nb"/>
+                                    <action selector="stopButtonClickedWithSender:" target="5gI-5U-AMq" id="Mea-iF-kZF"/>
                                 </connections>
                             </button>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FmA-Pg-lMj">
@@ -740,6 +740,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="M07-ng-HTJ">
+                                <rect key="frame" x="93" y="228" width="100" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="FmA-Pg-lMj" secondAttribute="trailing" id="8Z1-ev-scc"/>
@@ -756,6 +760,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressIndicator" destination="M07-ng-HTJ" id="Ctk-bJ-6Di"/>
+                        <outlet property="speakButton" destination="0Gn-4n-25X" id="ZeH-6X-0Zy"/>
+                        <outlet property="stopButton" destination="T8Y-z8-UGJ" id="K8b-Q8-T2l"/>
                         <outlet property="textView" destination="LER-RT-egT" id="a7r-Dy-dwY"/>
                     </connections>
                 </viewController>
